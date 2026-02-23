@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 목록 | Vibe Coding</title>
+    <title>새 게시글 작성 | Vibe Coding</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -25,6 +25,26 @@
 
         .rounded-5 {
             border-radius: 2rem !important;
+        }
+
+        .form-control {
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #eee;
+            background-color: #f9f9f9;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            background-color: #fff;
+            border-color: #000;
+            box-shadow: none;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #333;
         }
     </style>
 </head>
@@ -52,36 +72,31 @@
 
     <main class="pt-5 mt-5">
         <div class="container py-5">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <h1 class="display-5 fw-bold mb-0">게시글 목록</h1>
-                <a href="/posts/new" class="btn btn-dark rounded-pill px-4">새 게시글 작성</a>
-            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between align-items-center mb-5">
+                        <h1 class="display-5 fw-bold mb-0">새 게시글 작성</h1>
+                    </div>
 
-            <div class="card border-0 rounded-5 shadow-sm overflow-hidden">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead class="bg-light">
-                            <tr>
-                                <th class="ps-4 py-3 text-uppercase small fw-bold text-secondary">번호</th>
-                                <th class="py-3 text-uppercase small fw-bold text-secondary">제목</th>
-                                <th class="py-3 text-uppercase small fw-bold text-secondary">생성일</th>
-                                <th class="py-3 text-uppercase small fw-bold text-secondary">조회수</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="post : ${posts}">
-                                <td class="ps-4 py-3 align-middle" th:text="${post.no}">1</td>
-                                <td class="py-3 align-middle">
-                                    <a th:href="@{/posts/{no}(no=${post.no})}"
-                                        class="text-decoration-none text-dark fw-semibold" th:text="${post.title}">게시글
-                                        제목</a>
-                                </td>
-                                <td class="py-3 align-middle text-secondary small"
-                                    th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}">2024-01-01</td>
-                                <td class="py-3 align-middle text-secondary small" th:text="${post.views}">0</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="card border-0 rounded-5 shadow-sm p-4 p-lg-5">
+                        <form id="postForm" onsubmit="event.preventDefault(); alert('새 게시글 등록');">
+                            <div class="mb-4">
+                                <label for="title" class="form-label">제목</label>
+                                <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" required>
+                            </div>
+                            <div class="mb-5">
+                                <label for="content" class="form-label">내용</label>
+                                <textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요"
+                                    required></textarea>
+                            </div>
+
+                            <div class="d-flex justify-content-center gap-3">
+                                <a href="/posts" class="btn btn-light rounded-pill px-5 py-2 fw-semibold">취소</a>
+                                <button type="submit"
+                                    class="btn btn-dark rounded-pill px-5 py-2 fw-semibold">등록</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
