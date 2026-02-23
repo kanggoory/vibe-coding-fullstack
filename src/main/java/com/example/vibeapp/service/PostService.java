@@ -17,4 +17,11 @@ public class PostService {
     public List<Post> findAllPosts() {
         return postRepository.findAll();
     }
+
+    public Post findPostByNo(Long no) {
+        Post post = postRepository.findByNo(no)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
+        post.setViews(post.getViews() + 1);
+        return post;
+    }
 }

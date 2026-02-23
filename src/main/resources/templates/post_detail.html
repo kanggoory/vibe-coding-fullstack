@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 목록 | Vibe Coding</title>
+    <title th:text="${post.title} + ' | Vibe Coding'">게시글 상세 | Vibe Coding</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -25,6 +25,12 @@
 
         .rounded-5 {
             border-radius: 2rem !important;
+        }
+
+        .post-content {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -52,36 +58,46 @@
 
     <main class="pt-5 mt-5">
         <div class="container py-5">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <h1 class="display-5 fw-bold mb-0">게시글 목록</h1>
-                <button class="btn btn-dark rounded-pill px-4">새 게시글 작성</button>
+            <div class="mb-4">
+                <a href="/posts" class="btn btn-outline-dark rounded-pill px-4 btn-sm d-inline-flex align-items-center">
+                    <span class="material-symbols-outlined me-1 fs-6">arrow_back</span>
+                    목록으로 돌아가기
+                </a>
             </div>
 
-            <div class="card border-0 rounded-5 shadow-sm overflow-hidden">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead class="bg-light">
-                            <tr>
-                                <th class="ps-4 py-3 text-uppercase small fw-bold text-secondary">번호</th>
-                                <th class="py-3 text-uppercase small fw-bold text-secondary">제목</th>
-                                <th class="py-3 text-uppercase small fw-bold text-secondary">생성일</th>
-                                <th class="py-3 text-uppercase small fw-bold text-secondary">조회수</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="post : ${posts}">
-                                <td class="ps-4 py-3 align-middle" th:text="${post.no}">1</td>
-                                <td class="py-3 align-middle">
-                                    <a th:href="@{/posts/{no}(no=${post.no})}"
-                                        class="text-decoration-none text-dark fw-semibold" th:text="${post.title}">게시글
-                                        제목</a>
-                                </td>
-                                <td class="py-3 align-middle text-secondary small"
-                                    th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}">2024-01-01</td>
-                                <td class="py-3 align-middle text-secondary small" th:text="${post.views}">0</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="card border-0 rounded-5 shadow-sm p-4 p-lg-5">
+                <div class="mb-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2 fw-medium me-2"
+                            th:text="'No. ' + ${post.no}">No. 1</span>
+                        <span class="text-secondary small"
+                            th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-01-01
+                            00:00:00</span>
+                    </div>
+                    <h1 class="display-6 fw-bold mb-3" th:text="${post.title}">게시글 제목</h1>
+                    <div class="d-flex align-items-center text-secondary small">
+                        <span class="me-3 d-flex align-items-center">
+                            <span class="material-symbols-outlined fs-6 me-1">visibility</span>
+                            <span th:text="${post.views}">0</span>
+                        </span>
+                        <span th:if="${post.updatedAt != null and post.updatedAt != post.createdAt}"
+                            class="d-flex align-items-center">
+                            <span class="material-symbols-outlined fs-6 me-1">edit</span>
+                            수정일: <span th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">2024-01-01
+                                00:00:00</span>
+                        </span>
+                    </div>
+                </div>
+
+                <hr class="my-4 opacity-10">
+
+                <div class="post-content mb-5" th:text="${post.content}">
+                    게시글 내용입니다.
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-light rounded-pill px-4">수정</button>
+                    <button class="btn btn-outline-danger rounded-pill px-4">삭제</button>
                 </div>
             </div>
         </div>
