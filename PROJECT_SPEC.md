@@ -29,8 +29,18 @@
 - `io.spring.dependency-management` (Spring Boot 버전에 맞춰 추가)
 - `java`
 
-### 의존성 (Dependencies)
-- 현재 의존성 없음 (최소 기능 프로젝트)
+- Thymeleaf (`spring-boot-starter-thymeleaf`)
+- **[NEW]** Bootstrap 5.3.3 (via CDN)
 
 ## 4. 설정 파일 구성 (Configuration Files)
 - 프로젝트 설정은 `src/main/resources/application.yml` 파일을 사용합니다.
+
+## 5. Git 커밋 메시지 규약 (Git Commit Convention)
+- `git-message-format.md` 파일에 정의된 **Conventional Commits** 형식을 따릅니다.
+- **형식**: `<type>(<scope>): <subject>`
+- **Type**: `feat`, `fix`, `refactor`, `docs`, `chore` 등
+
+## 6. UI 프레임워크 (UI Framework)
+- **Bootstrap 5.3.3**: CDN 방식으로 적용되어 있으며, `index.html`에서 직접 참조합니다.
+- **아이콘**: Material Symbols Outlined 사용
+- **폰트**: Lexend Font
