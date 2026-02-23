@@ -24,4 +24,12 @@ public class PostService {
         post.setViews(post.getViews() + 1);
         return post;
     }
+
+    public void savePost(Post post) {
+        post.setCreatedAt(java.time.LocalDateTime.now());
+        post.setUpdatedAt(null);
+        post.setViews(0);
+        post.setNo(null); // Repository will set this
+        postRepository.save(post);
+    }
 }

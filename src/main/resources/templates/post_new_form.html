@@ -79,15 +79,16 @@
                     </div>
 
                     <div class="card border-0 rounded-5 shadow-sm p-4 p-lg-5">
-                        <form id="postForm" onsubmit="event.preventDefault(); alert('새 게시글 등록');">
+                        <form id="postForm" action="/posts/add" method="post">
                             <div class="mb-4">
                                 <label for="title" class="form-label">제목</label>
-                                <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" required>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요"
+                                    required>
                             </div>
                             <div class="mb-5">
                                 <label for="content" class="form-label">내용</label>
-                                <textarea class="form-control" id="content" rows="10" placeholder="내용을 입력하세요"
-                                    required></textarea>
+                                <textarea class="form-control" id="content" name="content" rows="10"
+                                    placeholder="내용을 입력하세요" required></textarea>
                             </div>
 
                             <div class="d-flex justify-content-center gap-3">

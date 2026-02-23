@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public class PostRepository {
     private static final List<Post> posts = new ArrayList<>();
+    private static long sequence = 0;
 
     static {
         for (long i = 1; i <= 10; i++) {
@@ -23,6 +24,7 @@ public class PostRepository {
                 (int) (Math.random() * 100)
             ));
         }
+        sequence = 10;
     }
 
     public List<Post> findAll() {
@@ -33,5 +35,11 @@ public class PostRepository {
         return posts.stream()
                 .filter(post -> post.getNo().equals(no))
                 .findFirst();
+    }
+
+    public Post save(Post post) {
+        post.setNo(++sequence);
+        posts.add(post);
+        return post;
     }
 }
