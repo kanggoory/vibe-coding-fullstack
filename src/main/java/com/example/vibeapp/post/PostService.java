@@ -15,10 +15,6 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> findAllPosts() {
-        return postRepository.findAll();
-    }
-
     public Map<String, Object> getPagedPosts(int page, int size) {
         long totalItems = postRepository.count();
         int totalPages = (int) Math.ceil((double) totalItems / size);
@@ -37,30 +33,30 @@ public class PostService {
         return result;
     }
 
-    public Post findPostByNo(Long no) {
-        Post post = postRepository.findByNo(no)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
+    public Post getPostById(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post id: " + id));
         post.setViews(post.getViews() + 1);
         return post;
     }
 
-    public void savePost(Post post) {
+    public void createPost(Post post) {
         post.setCreatedAt(java.time.LocalDateTime.now());
         post.setUpdatedAt(null);
         post.setViews(0);
-        post.setNo(null); // Repository will set this
+        post.setId(null); // Repository will set this
         postRepository.save(post);
     }
 
-    public void updatePost(Long no, String title, String content) {
-        Post post = postRepository.findByNo(no)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
+    public void updatePost(Long id, String title, String content) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post id: " + id));
         post.setTitle(title);
         post.setContent(content);
         post.setUpdatedAt(java.time.LocalDateTime.now());
     }
 
-    public void deletePost(Long no) {
-        postRepository.deleteByNo(no);
+    public void deletePostById(Long id) {
+        postRepository.deleteById(id);
     }
 }

@@ -26,13 +26,9 @@ public class PostRepository {
         sequence = 10;
     }
 
-    public List<Post> findAll() {
-        return new ArrayList<>(posts);
-    }
-
-    public Optional<Post> findByNo(Long no) {
+    public Optional<Post> findById(Long id) {
         return posts.stream()
-                .filter(post -> post.getNo().equals(no))
+                .filter(post -> post.getId().equals(id))
                 .findFirst();
     }
 
@@ -49,12 +45,12 @@ public class PostRepository {
     }
 
     public Post save(Post post) {
-        post.setNo(++sequence);
+        post.setId(++sequence);
         posts.add(post);
         return post;
     }
 
-    public void deleteByNo(Long no) {
-        posts.removeIf(post -> post.getNo().equals(no));
+    public void deleteById(Long id) {
+        posts.removeIf(post -> post.getId().equals(id));
     }
 }

@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("message", "Hello, Vibe UI!");
+    public String index() {
         return "home/home";
     }
 

@@ -69,7 +69,7 @@
                 <div class="mb-4">
                     <div class="d-flex align-items-center mb-2">
                         <span class="badge bg-light text-dark rounded-pill px-3 py-2 fw-medium me-2"
-                            th:text="'No. ' + ${post.no}">No. 1</span>
+                            th:text="'No. ' + ${post.id}">No. 1</span>
                         <span class="text-secondary small"
                             th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2024-01-01
                             00:00:00</span>
@@ -96,8 +96,8 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2">
-                    <a th:href="@{/posts/{no}/edit(no=${post.no})}" class="btn btn-light rounded-pill px-4">수정</a>
-                    <form th:action="@{/posts/{no}/delete(no=${post.no})}" method="post"
+                    <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-light rounded-pill px-4">수정</a>
+                    <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post"
                         onsubmit="return confirm('정말로 이 게시글을 삭제하시겠습니까?');" style="display: inline-block; margin: 0;">
                         <button type="submit" class="btn btn-outline-danger rounded-pill px-4">삭제</button>
                     </form>

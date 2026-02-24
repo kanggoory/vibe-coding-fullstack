@@ -21,15 +21,15 @@ public class PostController {
         return "post/posts";
     }
 
-    @GetMapping("/posts/{no}")
-    public String detail(@PathVariable("no") Long no, Model model) {
-        model.addAttribute("post", postService.findPostByNo(no));
+    @GetMapping("/posts/{id}")
+    public String detail(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("post", postService.getPostById(id));
         return "post/post_detail";
     }
 
-    @GetMapping("/posts/{no}/edit")
-    public String editForm(@PathVariable("no") Long no, Model model) {
-        model.addAttribute("post", postService.findPostByNo(no));
+    @GetMapping("/posts/{id}/edit")
+    public String editForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("post", postService.getPostById(id));
         return "post/post_edit_form";
     }
 
@@ -40,19 +40,19 @@ public class PostController {
 
     @PostMapping("/posts/add")
     public String add(Post post) {
-        postService.savePost(post);
+        postService.createPost(post);
         return "redirect:/posts";
     }
 
-    @PostMapping("/posts/{no}/save")
-    public String update(@PathVariable("no") Long no, String title, String content) {
-        postService.updatePost(no, title, content);
-        return "redirect:/posts/" + no;
+    @PostMapping("/posts/{id}/save")
+    public String update(@PathVariable("id") Long id, String title, String content) {
+        postService.updatePost(id, title, content);
+        return "redirect:/posts/" + id;
     }
 
-    @PostMapping("/posts/{no}/delete")
-    public String delete(@PathVariable("no") Long no) {
-        postService.deletePost(no);
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable("id") Long id) {
+        postService.deletePostById(id);
         return "redirect:/posts";
     }
 }
