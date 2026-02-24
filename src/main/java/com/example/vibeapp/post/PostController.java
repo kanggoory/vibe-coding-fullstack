@@ -18,24 +18,24 @@ public class PostController {
     public String list(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
         Map<String, Object> pagedData = postService.getPagedPosts(page, 5);
         model.addAllAttributes(pagedData);
-        return "posts";
+        return "post/posts";
     }
 
     @GetMapping("/posts/{no}")
     public String detail(@PathVariable("no") Long no, Model model) {
         model.addAttribute("post", postService.findPostByNo(no));
-        return "post_detail";
+        return "post/post_detail";
     }
 
     @GetMapping("/posts/{no}/edit")
     public String editForm(@PathVariable("no") Long no, Model model) {
         model.addAttribute("post", postService.findPostByNo(no));
-        return "post_edit_form";
+        return "post/post_edit_form";
     }
 
     @GetMapping("/posts/new")
     public String newForm() {
-        return "post_new_form";
+        return "post/post_new_form";
     }
 
     @PostMapping("/posts/add")
