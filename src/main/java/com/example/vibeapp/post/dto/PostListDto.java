@@ -16,7 +16,7 @@ public record PostListDto(
 
     public static PostListDto from(Post post) {
         return new PostListDto(
-                post.getId(),
+                post.getNo(),
                 post.getTitle(),
                 post.getCreatedAt(),
                 post.getViews()

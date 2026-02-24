@@ -3,7 +3,7 @@ package com.example.vibeapp.post;
 import java.time.LocalDateTime;
 
 public class Post {
-    private Long id;
+    private Long no;
     private String title;
     private String content;
     private LocalDateTime createdAt;
@@ -12,8 +12,8 @@ public class Post {
 
     public Post() {}
 
-    public Post(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, Integer views) {
-        this.id = id;
+    public Post(Long no, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, Integer views) {
+        this.no = no;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
@@ -21,8 +21,8 @@ public class Post {
         this.views = views;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getNo() { return no; }
+    public void setNo(Long no) { this.no = no; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }

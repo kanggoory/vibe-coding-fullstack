@@ -39,9 +39,9 @@ public class PostService {
     }
 
     public PostResponseDto getPostById(Long id) {
+        postRepository.incrementViews(id);
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post id: " + id));
-        post.setViews(post.getViews() + 1);
         return PostResponseDto.from(post);
     }
 
@@ -50,7 +50,7 @@ public class PostService {
         post.setCreatedAt(java.time.LocalDateTime.now());
         post.setUpdatedAt(null);
         post.setViews(0);
-        post.setId(null); // Repository will set this
+        post.setNo(null); // Repository will set this
         postRepository.save(post);
     }
 

@@ -20,7 +20,7 @@ public record PostResponseDto(
 
     public static PostResponseDto from(Post post) {
         return new PostResponseDto(
-                post.getId(),
+                post.getNo(),
                 post.getTitle(),
                 post.getContent(),
                 post.getCreatedAt(),

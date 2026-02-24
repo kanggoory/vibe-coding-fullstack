@@ -16,3 +16,9 @@ out/
 # Other
 bin/
 .DS_Store
+
+# H2 Database
+/data/
+*.mv.db
+*.trace.db
+/logs/
