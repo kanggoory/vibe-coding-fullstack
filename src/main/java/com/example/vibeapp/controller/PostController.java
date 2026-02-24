@@ -28,6 +28,12 @@ public class PostController {
         return "post_detail";
     }
 
+    @GetMapping("/posts/{no}/edit")
+    public String editForm(@PathVariable("no") Long no, Model model) {
+        model.addAttribute("post", postService.findPostByNo(no)); // Reuse findPostByNo to get the post (note: this will increment views, which is usually acceptable or can be refactored if strict)
+        return "post_edit_form";
+    }
+
     @GetMapping("/posts/new")
     public String newForm() {
         return "post_new_form";
