@@ -32,4 +32,12 @@ public class PostService {
         post.setNo(null); // Repository will set this
         postRepository.save(post);
     }
+
+    public void updatePost(Long no, String title, String content) {
+        Post post = postRepository.findByNo(no)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
+        post.setTitle(title);
+        post.setContent(content);
+        post.setUpdatedAt(java.time.LocalDateTime.now());
+    }
 }

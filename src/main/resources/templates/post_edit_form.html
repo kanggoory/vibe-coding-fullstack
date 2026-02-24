@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="card border-0 rounded-5 shadow-sm p-4 p-lg-5">
-                        <form id="editForm" onsubmit="event.preventDefault(); alert('게시글 수정');">
+                        <form id="editForm" th:action="@{/posts/{no}/save(no=${post.no})}" method="post">
                             <div class="row mb-4">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="form-label">번호</label>
