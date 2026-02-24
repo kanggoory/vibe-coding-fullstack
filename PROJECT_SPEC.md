@@ -40,7 +40,18 @@
 - **형식**: `<type>(<scope>): <subject>`
 - **Type**: `feat`, `fix`, `refactor`, `docs`, `chore` 등
 
-## 6. UI 프레임워크 (UI Framework)
-- **Bootstrap 5.3.3**: CDN 방식으로 적용되어 있으며, `index.html`에서 직접 참조합니다.
+## 6. UI 프레임워크 및 템플릿 (UI Framework & Templates)
+- **Bootstrap 5.3.3**: CDN 방식으로 적용되어 있습니다.
 - **아이콘**: Material Symbols Outlined 사용
 - **폰트**: Lexend Font
+- **템플릿 구조**: 기능별 서브디렉토리로 구성 (`src/main/resources/templates/`)
+  - `home/`: 메인 화면 관련 (`home.html`)
+  - `post/`: 게시글 CRUD 관련 (`posts.html`, `post_detail.html` 등)
+
+## 7. 아키텍처 및 패키지 구조 (Architecture & Package Structure)
+- **기능 기반 패키지 구조 (Feature-oriented Package Structure)**: 계층(Layer)이 아닌 기능(Feature) 단위로 패키지를 구성합니다.
+  - `com.example.vibeapp.home`: 홈 화면 관련 로직
+  - `com.example.vibeapp.post`: 게시글 관련 로직 (Controller, Service, Repository, Entity)
+- **명명 관례 (Naming Convention)**:
+  - 엔티티 식별자는 `id`를 사용합니다.
+  - 서비스 메서드는 `get{Entity}ById`, `create{Entity}` 등 행위 중심의 이름을 사용합니다.
