@@ -3,25 +3,14 @@ package com.example.vibeapp.post.dto;
 import com.example.vibeapp.post.Post;
 import java.time.LocalDateTime;
 
-public class PostResponseDto {
-    private Long id;
-    private String title;
-    private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private Integer views;
-
-    public PostResponseDto() {}
-
-    private PostResponseDto(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, Integer views) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.views = views;
-    }
-
+public record PostResponseDto(
+    Long id,
+    String title,
+    String content,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt,
+    Integer views
+) {
     public static PostResponseDto from(Post post) {
         return new PostResponseDto(
                 post.getId(),
@@ -32,11 +21,4 @@ public class PostResponseDto {
                 post.getViews()
         );
     }
-
-    public Long getId() { return id; }
-    public String getTitle() { return title; }
-    public String getContent() { return content; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public Integer getViews() { return views; }
 }

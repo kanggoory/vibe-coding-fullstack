@@ -54,7 +54,7 @@
 - **기능 기반 패키지 구조 (Feature-oriented Package Structure)**: 계층(Layer)이 아닌 기능(Feature) 단위로 패키지를 구성합니다.
   - `com.example.vibeapp.home`: 홈 화면 관련 로직
   - `com.example.vibeapp.post`: 게시글 관련 로직 (Controller, Service, Repository, Entity)
-- **DTO 패턴 (DTO Pattern)**: Web/Service 계층 간 데이터 전송을 위해 DTO를 사용합니다 (`com.example.vibeapp.post.dto`).
+- **DTO 패턴 (DTO Pattern)**: Web/Service 계층 간 데이터 전송을 위해 Java **record** 형식의 DTO를 사용합니다 (`com.example.vibeapp.post.dto`).
   - `PostCreateDto`, `PostUpdateDto`, `PostResponseDto`, `PostListDto`
 - **입력 검증 (Validation)**: `Jakarta Bean Validation`을 사용하여 DTO 레벨에서 제약 조건을 정의하고, `@Valid`를 통해 검증합니다.
 - **명명 관례 (Naming Convention)**:

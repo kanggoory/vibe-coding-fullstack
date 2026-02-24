@@ -39,7 +39,7 @@ public class PostController {
 
     @GetMapping("/posts/new")
     public String newForm(Model model) {
-        model.addAttribute("postCreateDto", new PostCreateDto());
+        model.addAttribute("postCreateDto", new PostCreateDto(null, null));
         return "post/post_new_form";
     }
 
