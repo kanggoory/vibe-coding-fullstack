@@ -5,6 +5,9 @@ import com.example.vibeapp.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -16,6 +19,24 @@ public class PostService {
 
     public List<Post> findAllPosts() {
         return postRepository.findAll();
+    }
+
+    public Map<String, Object> getPagedPosts(int page, int size) {
+        long totalItems = postRepository.count();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        int offset = (page - 1) * size;
+
+        List<Post> posts = postRepository.findList(offset, size);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("posts", posts);
+        result.put("currentPage", page);
+        result.put("totalPages", totalPages);
+        result.put("totalItems", totalItems);
+        result.put("hasNext", page < totalPages);
+        result.put("hasPrev", page > 1);
+
+        return result;
     }
 
     public Post findPostByNo(Long no) {

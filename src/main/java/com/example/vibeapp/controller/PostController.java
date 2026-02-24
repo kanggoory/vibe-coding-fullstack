@@ -3,10 +3,10 @@ package com.example.vibeapp.controller;
 import com.example.vibeapp.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import com.example.vibeapp.domain.Post;
+
+import java.util.Map;
 
 @Controller
 public class PostController {
@@ -17,8 +17,9 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public String list(Model model) {
-        model.addAttribute("posts", postService.findAllPosts());
+    public String list(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
+        Map<String, Object> pagedData = postService.getPagedPosts(page, 5);
+        model.addAllAttributes(pagedData);
         return "posts";
     }
 

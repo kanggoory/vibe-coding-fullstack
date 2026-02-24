@@ -37,6 +37,18 @@ public class PostRepository {
                 .findFirst();
     }
 
+    public List<Post> findList(int offset, int limit) {
+        return posts.stream()
+                .sorted((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt()))
+                .skip(offset)
+                .limit(limit)
+                .toList();
+    }
+
+    public long count() {
+        return posts.size();
+    }
+
     public Post save(Post post) {
         post.setNo(++sequence);
         posts.add(post);
