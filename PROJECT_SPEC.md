@@ -30,6 +30,7 @@
 - `java`
 
 - Thymeleaf (`spring-boot-starter-thymeleaf`)
+- Bean Validation (`spring-boot-starter-validation`)
 - **[NEW]** Bootstrap 5.3.3 (via CDN)
 
 ## 4. 설정 파일 구성 (Configuration Files)
@@ -47,11 +48,18 @@
 - **템플릿 구조**: 기능별 서브디렉토리로 구성 (`src/main/resources/templates/`)
   - `home/`: 메인 화면 관련 (`home.html`)
   - `post/`: 게시글 CRUD 관련 (`posts.html`, `post_detail.html` 등)
+- **템플릿 바인딩**: Thymeleaf의 `th:object`와 `th:field`를 사용하여 DTO와 바인딩하고, validation 오류를 동적으로 표시합니다.
 
 ## 7. 아키텍처 및 패키지 구조 (Architecture & Package Structure)
 - **기능 기반 패키지 구조 (Feature-oriented Package Structure)**: 계층(Layer)이 아닌 기능(Feature) 단위로 패키지를 구성합니다.
   - `com.example.vibeapp.home`: 홈 화면 관련 로직
   - `com.example.vibeapp.post`: 게시글 관련 로직 (Controller, Service, Repository, Entity)
+- **DTO 패턴 (DTO Pattern)**: Web/Service 계층 간 데이터 전송을 위해 DTO를 사용합니다 (`com.example.vibeapp.post.dto`).
+  - `PostCreateDto`, `PostUpdateDto`, `PostResponseDto`, `PostListDto`
+- **입력 검증 (Validation)**: `Jakarta Bean Validation`을 사용하여 DTO 레벨에서 제약 조건을 정의하고, `@Valid`를 통해 검증합니다.
 - **명명 관례 (Naming Convention)**:
   - 엔티티 식별자는 `id`를 사용합니다.
   - 서비스 메서드는 `get{Entity}ById`, `create{Entity}` 등 행위 중심의 이름을 사용합니다.
+- **변환 방식**:
+  - Entity → DTO: 정적 팩토리 메서드 `from()`
+  - DTO → Entity: `toEntity()` 메서드

@@ -1,7 +1,11 @@
 package com.example.vibeapp.post;
 
+import com.example.vibeapp.post.dto.PostCreateDto;
+import com.example.vibeapp.post.dto.PostUpdateDto;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -34,19 +38,27 @@ public class PostController {
     }
 
     @GetMapping("/posts/new")
-    public String newForm() {
+    public String newForm(Model model) {
+        model.addAttribute("postCreateDto", new PostCreateDto());
         return "post/post_new_form";
     }
 
     @PostMapping("/posts/add")
-    public String add(Post post) {
-        postService.createPost(post);
+    public String add(@Valid @ModelAttribute("postCreateDto") PostCreateDto postCreateDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "post/post_new_form";
+        }
+        postService.createPost(postCreateDto);
         return "redirect:/posts";
     }
 
     @PostMapping("/posts/{id}/save")
-    public String update(@PathVariable("id") Long id, String title, String content) {
-        postService.updatePost(id, title, content);
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("post") PostUpdateDto postUpdateDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("postId", id); // For cancel link or other needs
+            return "post/post_edit_form";
+        }
+        postService.updatePost(id, postUpdateDto);
         return "redirect:/posts/" + id;
     }
 

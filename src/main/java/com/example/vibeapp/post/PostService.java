@@ -1,11 +1,14 @@
 package com.example.vibeapp.post;
 
+import com.example.vibeapp.post.dto.PostCreateDto;
+import com.example.vibeapp.post.dto.PostListDto;
+import com.example.vibeapp.post.dto.PostResponseDto;
+import com.example.vibeapp.post.dto.PostUpdateDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Optional;
 
 @Service
 public class PostService {
@@ -20,7 +23,9 @@ public class PostService {
         int totalPages = (int) Math.ceil((double) totalItems / size);
         int offset = (page - 1) * size;
 
-        List<Post> posts = postRepository.findList(offset, size);
+        List<PostListDto> posts = postRepository.findList(offset, size).stream()
+                .map(PostListDto::from)
+                .toList();
 
         Map<String, Object> result = new HashMap<>();
         result.put("posts", posts);
@@ -33,14 +38,15 @@ public class PostService {
         return result;
     }
 
-    public Post getPostById(Long id) {
+    public PostResponseDto getPostById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post id: " + id));
         post.setViews(post.getViews() + 1);
-        return post;
+        return PostResponseDto.from(post);
     }
 
-    public void createPost(Post post) {
+    public void createPost(PostCreateDto createDto) {
+        Post post = createDto.toEntity();
         post.setCreatedAt(java.time.LocalDateTime.now());
         post.setUpdatedAt(null);
         post.setViews(0);
@@ -48,11 +54,11 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public void updatePost(Long id, String title, String content) {
+    public void updatePost(Long id, PostUpdateDto updateDto) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post id: " + id));
-        post.setTitle(title);
-        post.setContent(content);
+        post.setTitle(updateDto.getTitle());
+        post.setContent(updateDto.getContent());
         post.setUpdatedAt(java.time.LocalDateTime.now());
     }
 
