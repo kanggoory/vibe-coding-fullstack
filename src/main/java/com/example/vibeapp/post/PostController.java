@@ -1,10 +1,8 @@
-package com.example.vibeapp.controller;
+package com.example.vibeapp.post;
 
-import com.example.vibeapp.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.example.vibeapp.domain.Post;
 
 import java.util.Map;
 
@@ -31,7 +29,7 @@ public class PostController {
 
     @GetMapping("/posts/{no}/edit")
     public String editForm(@PathVariable("no") Long no, Model model) {
-        model.addAttribute("post", postService.findPostByNo(no)); // Reuse findPostByNo to get the post (note: this will increment views, which is usually acceptable or can be refactored if strict)
+        model.addAttribute("post", postService.findPostByNo(no));
         return "post_edit_form";
     }
 
