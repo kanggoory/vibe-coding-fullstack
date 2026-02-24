@@ -12,6 +12,9 @@ public record PostCreateDto(
     @NotBlank(message = "내용은 필수입니다.")
     String content
 ) {
+    public String getTitle() { return title; }
+    public String getContent() { return content; }
+
     public Post toEntity() {
         Post post = new Post();
         post.setTitle(this.title);

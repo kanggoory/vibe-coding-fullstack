@@ -25,6 +25,12 @@ public class PostController {
         return "post/posts";
     }
 
+    @GetMapping("/posts/new")
+    public String newForm(Model model) {
+        model.addAttribute("postCreateDto", new PostCreateDto("", ""));
+        return "post/post_new_form";
+    }
+
     @GetMapping("/posts/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
         model.addAttribute("post", postService.getPostById(id));
@@ -35,12 +41,6 @@ public class PostController {
     public String editForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("post", postService.getPostById(id));
         return "post/post_edit_form";
-    }
-
-    @GetMapping("/posts/new")
-    public String newForm(Model model) {
-        model.addAttribute("postCreateDto", new PostCreateDto(null, null));
-        return "post/post_new_form";
     }
 
     @PostMapping("/posts/add")
@@ -55,7 +55,8 @@ public class PostController {
     @PostMapping("/posts/{id}/save")
     public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("post") PostUpdateDto postUpdateDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("postId", id); // For cancel link or other needs
+            // Records are immutable, so we can't setId. 
+            // The template should use {id} from the path for cancel/action URLs.
             return "post/post_edit_form";
         }
         postService.updatePost(id, postUpdateDto);

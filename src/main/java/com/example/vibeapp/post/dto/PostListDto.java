@@ -9,6 +9,11 @@ public record PostListDto(
     LocalDateTime createdAt,
     Integer views
 ) {
+    public Long getId() { return id; }
+    public String getTitle() { return title; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public Integer getViews() { return views; }
+
     public static PostListDto from(Post post) {
         return new PostListDto(
                 post.getId(),

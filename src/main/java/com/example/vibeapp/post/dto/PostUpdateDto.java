@@ -11,4 +11,6 @@ public record PostUpdateDto(
     @NotBlank(message = "내용은 필수입니다.")
     String content
 ) {
+    public String getTitle() { return title; }
+    public String getContent() { return content; }
 }
